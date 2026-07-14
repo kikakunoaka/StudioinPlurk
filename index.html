@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>噗浪周邊客製工作室</title>
-<meta name="description" content="噗浪周邊客製工作室資訊整理與體驗回報，方便委託前查詢工作室營運狀況、工廠與過往評價。">
+<meta name="description" content="噗浪周邊客製工作室資訊整理與體驗回饋，方便委託前查詢工作室營運狀況、工廠與過往評價。">
 <link rel="icon" type="image/svg+xml" href="assets/img/icon.svg">
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
@@ -18,7 +18,7 @@
     </a>
     <nav class="header-nav">
       <a class="nav-back" href="https://www.plurk.com/p/3iwsb1k1ce" target="_blank" rel="noopener">偷偷說本舖</a>
-      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回報</a>
+      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回饋</a>
     </nav>
   </div>
 </header>
@@ -59,6 +59,13 @@
       <label>客製項目</label>
       <select id="filterItem"><option value="">全部項目</option></select>
     </div>
+    <div class="filter-group">
+      <label>排序方式</label>
+      <select id="filterSort">
+        <option value="count_desc">評價多→寡</option>
+        <option value="avg_desc">評價高→低</option>
+      </select>
+    </div>
   </section>
 
   <p class="result-count" id="resultCount"></p>
@@ -69,7 +76,7 @@
 <footer class="site-footer">
   <div class="wrap">
     以 Claude.ai 製作<br>
-    資料整理自社群共同回報，僅供參考<br>
+    資料來源社群共同回報，僅供參考<br>
     <a href="https://pixabay.com/vectors/heart-love-kawaii-face-expression-5106075/" target="_blank" rel="noopener">背景素材</a> ・ 
     <a href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?usp=sharing" target="_blank" rel="noopener">Google 試算表</a>
   </div>

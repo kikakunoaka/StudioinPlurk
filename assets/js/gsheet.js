@@ -101,6 +101,17 @@ function formatTextWithLinks(text) {
   return safe.replace(urlRegex, (url) => `<a href="${url}" target="_blank" rel="noopener">${url}</a>`);
 }
 
+/**
+ * 純前端沒辦法讀取遠端檔案的實際 Content-Type，只能靠網址副檔名判斷是不是圖片。
+ * 判斷得到的副檔名符合常見圖片格式就當作圖片顯示縮圖，判斷不到（例如雲端硬碟分享連結、
+ * 沒有副檔名的短網址等）就顯示成連結按鈕，避免圖片破圖或很久讀不出來。
+ */
+function isImageUrl(url) {
+  if (!url) return false;
+  const clean = String(url).trim().split(/[?#]/)[0];
+  return /\.(jpe?g|png|gif|webp|bmp|svg)$/i.test(clean);
+}
+
 /** 安全地解析日期字串以供排序用；解析失敗時回傳 0（視為最舊） */
 function safeDateValue(str) {
   const t = Date.parse(str);

@@ -252,7 +252,7 @@ button, input, select{ font-family: inherit; }
 .info-card .value{ font-weight:500; word-break: break-word; }
 
 .section-title{
-  font-family: var(--font-display); font-size:1.2rem; margin: 32px 0 16px;
+  font-family: var(--font-display); font-size:1.2rem; margin: 0;
   display:flex; align-items:center; gap:10px; font-weight: 700;
 }
 .section-title .count{
@@ -260,7 +260,15 @@ button, input, select{ font-family: inherit; }
   color: var(--highlight); padding:3px 10px; border-radius:999px; font-weight:700;
 }
 
+/* 「體驗回報」標題與排序控制放在同一行，兩端對齊 */
+.review-header{
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap: wrap; gap: 10px 16px;
+  margin: 32px 0 16px;
+}
+
 .score-summary{ display:flex; align-items:baseline; gap:8px; margin-bottom: 18px; }
+.score-summary:empty{ display:none; margin-bottom:0; }
 .score-summary .num{ font-family: var(--font-display); font-size:2.2rem; color: var(--accent); font-weight: 700; }
 .score-summary .of{ color: var(--ink-soft); font-family: var(--font-mono); font-size: .85rem; }
 
@@ -288,6 +296,32 @@ button, input, select{ font-family: inherit; }
   transition: opacity .15s ease;
 }
 .review-image-link:hover .review-thumb{ opacity:.88; }
+
+/* 返圖網址不是圖片格式時，改用連結按鈕呈現 */
+.review-link-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  font-family: var(--font-mono); font-weight:700; font-size:.8rem;
+  padding: 8px 18px; border-radius: 999px;
+  background: var(--accent-soft); color: var(--accent);
+  border: 1px solid transparent;
+  transition: background .15s ease, color .15s ease;
+}
+.review-link-btn:hover{ background: var(--accent); color: var(--surface); }
+
+/* 體驗回報排序控制 */
+.review-controls{
+  display:flex; align-items:center; gap:10px;
+}
+.review-controls label{
+  font-family: var(--font-mono); font-size:.7rem; font-weight:700; color: var(--ink-soft);
+}
+.review-controls select{
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  padding: 7px 12px; font-size:.85rem; color: var(--ink); font-weight:500;
+  background: var(--surface); cursor:pointer;
+  transition: border-color .15s;
+}
+.review-controls select:focus{ border-color: var(--accent); outline: none; }
 
 /* ===================== Footer ===================== */
 .site-footer{

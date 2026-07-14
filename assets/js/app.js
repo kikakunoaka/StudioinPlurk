@@ -9,6 +9,7 @@
   const factorySel = document.getElementById('filterFactory');
   const itemSel = document.getElementById('filterItem');
   const statusSel = document.getElementById('filterStatus');
+  const sortSel = document.getElementById('filterSort');
   const changelogContentEl = document.getElementById('changelogContent');
 
   let studios = [];
@@ -87,13 +88,26 @@
       return true;
     });
 
+    // 排序：預設「評價多→寡」（依回報則數），另可切換「評價高→低」（依平均分數）
+    // 沒有任何體驗回報的工作室評分視為 0，排序時會排在後面
+    const sortMode = sortSel ? sortSel.value : 'count_desc';
+    filtered.sort((a, b) => {
+      const scoreA = scoreMap[a[F.NAME]] || { avg: 0, count: 0 };
+      const scoreB = scoreMap[b[F.NAME]] || { avg: 0, count: 0 };
+      if (sortMode === 'avg_desc') {
+        return (parseFloat(scoreB.avg) || 0) - (parseFloat(scoreA.avg) || 0);
+      }
+      return (scoreB.count || 0) - (scoreA.count || 0);
+    });
+
     countEl.textContent = `共找到 ${filtered.length} 間工作室`;
     gridEl.innerHTML = filtered.length
       ? filtered.map(studioCard).join('')
       : `<div class="state-msg">找不到符合條件的工作室，換個篩選條件看看？</div>`;
   }
 
-  [searchInput, factorySel, itemSel, statusSel].forEach((el) => {
+  [searchInput, factorySel, itemSel, statusSel, sortSel].forEach((el) => {
+    if (!el) return;
     el.addEventListener('input', applyFilters);
     el.addEventListener('change', applyFilters);
   });

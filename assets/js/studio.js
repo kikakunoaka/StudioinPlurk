@@ -10,6 +10,7 @@
   const reviewSectionTitle = document.getElementById('reviewSectionTitle');
   const scoreSummaryEl = document.getElementById('scoreSummary');
   const reviewListEl = document.getElementById('reviewList');
+  const reviewSortSel = document.getElementById('reviewSort');
 
   function renderState(el, msg, isError) {
     el.innerHTML = `<div class="state-msg ${isError ? 'error' : ''}">
@@ -73,9 +74,7 @@
         </div>
       `).join('');
 
-    const studioReviews = reviews
-      .filter((r) => r[RF.STUDIO_NAME] === studioName)
-      .sort((a, b) => safeDateValue(b[RF.TIMESTAMP]) - safeDateValue(a[RF.TIMESTAMP]));
+    const studioReviews = reviews.filter((r) => r[RF.STUDIO_NAME] === studioName);
 
     reviewSectionTitle.innerHTML = `體驗回報 <span class="count">${studioReviews.length} 則</span>`;
 
@@ -85,34 +84,59 @@
         const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
         scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・平均體驗分數</span>`;
       }
-      reviewListEl.innerHTML = studioReviews.map((r) => {
-        const imageUrls = (RF.IMAGE_URLS || [])
-          .map((field) => r[field])
-          .filter(Boolean);
-        const imagesHtml = imageUrls.length
-          ? `<div class="review-images">
-              ${imageUrls.map((url) => `
-                <a class="review-image-link" href="${url}" target="_blank" rel="noopener">
-                  <img class="review-thumb" src="${url}" alt="${r[RF.STUDIO_NAME] || ''} 返圖" loading="lazy">
-                </a>
-              `).join('')}
-            </div>`
-          : '';
-        return `
-        <div class="review-card">
-          <div class="review-top">
-            <span class="review-reviewer">${r[RF.ORDER_ITEM] || '未填寫委印項目'}</span>
-            ${r[RF.SCORE] ? `<span class="review-score">⭐ ${r[RF.SCORE]}</span>` : ''}
+
+      // 排序：預設「評價新→舊」（依時間戳記），另可切換「評價高→低」（依體驗分數）
+      function sortReviews(list, mode) {
+        const sorted = [...list];
+        if (mode === 'score_desc') {
+          sorted.sort((a, b) => (parseFloat(b[RF.SCORE]) || 0) - (parseFloat(a[RF.SCORE]) || 0));
+        } else {
+          sorted.sort((a, b) => safeDateValue(b[RF.TIMESTAMP]) - safeDateValue(a[RF.TIMESTAMP]));
+        }
+        return sorted;
+      }
+
+      function renderReviewCards(list) {
+        reviewListEl.innerHTML = list.map((r) => {
+          const imageUrls = (RF.IMAGE_URLS || [])
+            .map((field) => r[field])
+            .filter(Boolean);
+          const imagesHtml = imageUrls.length
+            ? `<div class="review-images">
+                ${imageUrls.map((url) => (
+                  isImageUrl(url)
+                    ? `<a class="review-image-link" href="${url}" target="_blank" rel="noopener">
+                        <img class="review-thumb" src="${url}" alt="${r[RF.STUDIO_NAME] || ''} 返圖" loading="lazy">
+                      </a>`
+                    : `<a class="review-link-btn" href="${url}" target="_blank" rel="noopener">返圖連結</a>`
+                )).join('')}
+              </div>`
+            : '';
+          return `
+          <div class="review-card">
+            <div class="review-top">
+              <span class="review-reviewer">${r[RF.ORDER_ITEM] || '未填寫委印項目'}</span>
+              ${r[RF.SCORE] ? `<span class="review-score">⭐ ${r[RF.SCORE]}</span>` : ''}
+            </div>
+            <div class="review-meta">
+              ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ ${r[RF.REVIEWER]}` : ''}
+            </div>
+            <div class="review-comment">${formatTextWithLinks(r[RF.COMMENT])}</div>
+            ${r[RF.NOTE] ? `<div class="review-meta" style="margin-top:8px;">備註：${formatTextWithLinks(r[RF.NOTE])}</div>` : ''}
+            ${imagesHtml}
           </div>
-          <div class="review-meta">
-            ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ ${r[RF.REVIEWER]}` : ''}
-          </div>
-          <div class="review-comment">${formatTextWithLinks(r[RF.COMMENT])}</div>
-          ${r[RF.NOTE] ? `<div class="review-meta" style="margin-top:8px;">備註：${formatTextWithLinks(r[RF.NOTE])}</div>` : ''}
-          ${imagesHtml}
-        </div>
-      `;
-      }).join('');
+        `;
+        }).join('');
+      }
+
+      if (reviewSortSel) {
+        renderReviewCards(sortReviews(studioReviews, reviewSortSel.value));
+        reviewSortSel.addEventListener('change', () => {
+          renderReviewCards(sortReviews(studioReviews, reviewSortSel.value));
+        });
+      } else {
+        renderReviewCards(sortReviews(studioReviews, 'time_desc'));
+      }
     } else {
       renderState(reviewListEl, '目前還沒有體驗回報。', false);
       reviewListEl.querySelector('.spinner')?.remove();

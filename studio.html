@@ -17,7 +17,7 @@
     </a>
     <nav class="header-nav">
       <a class="nav-back" href="https://www.plurk.com/p/3iwsb1k1ce" target="_blank" rel="noopener">偷偷說本舖</a>
-      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回報</a>
+      <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">體驗回饋</a>
       <a class="nav-back btn-list" href="index.html">← 回列表</a>
     </nav>
   </div>
@@ -28,7 +28,16 @@
 
   <div class="info-grid" id="infoGrid"></div>
 
-  <h2 class="section-title" id="reviewSectionTitle">體驗回報</h2>
+  <div class="review-header">
+    <h2 class="section-title" id="reviewSectionTitle">體驗回饋</h2>
+    <div class="review-controls">
+      <label for="reviewSort">排序方式</label>
+      <select id="reviewSort">
+        <option value="time_desc">評價新→舊</option>
+        <option value="score_desc">評價高→低</option>
+      </select>
+    </div>
+  </div>
   <div class="score-summary" id="scoreSummary"></div>
   <div class="review-list" id="reviewList" aria-live="polite"></div>
 </main>
@@ -36,7 +45,7 @@
 <footer class="site-footer">
   <div class="wrap">
     以 Claude.ai 製作<br>
-    資料整理自社群共同回報，僅供參考<br>
+    資料來源社群共同回報，僅供參考<br>
     <a href="https://pixabay.com/vectors/heart-love-kawaii-face-expression-5106075/" target="_blank" rel="noopener">背景素材</a> ・ 
     <a href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?usp=sharing" target="_blank" rel="noopener">Google 試算表</a>
   </div>
