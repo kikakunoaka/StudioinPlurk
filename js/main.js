@@ -3,16 +3,20 @@
   const tagGroupsEl = document.getElementById('tagGroups');
   const searchInput = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearBtn');
+  const changelogBody = document.getElementById('changelogBody');
 
   let cols = [];
   let rows = [];
   let nameCol = '';
+  let iconCol = '';
   let tagCols = [];
-  let extraCols = [];
 
-  // 目前被選取的篩選 TAG，用 "欄位名::值" 當作 key 儲存
   const activeTags = new Set();
 
+  // ---- 更新日誌（可折疊區塊） ----
+  loadChangelog();
+
+  // ---- 主頁工作室列表 ----
   try {
     const data = await fetchSheet(CONFIG.listSheetName);
     cols = data.cols;
@@ -30,8 +34,8 @@
   }
 
   nameCol = cols[0];
-  tagCols = cols.slice(1).filter((c) => !isNonTagColumn(c));
-  extraCols = cols.slice(1).filter((c) => isNonTagColumn(c));
+  iconCol = cols.find((c) => c.trim().toUpperCase() === CONFIG.iconColumnName.toUpperCase()) || '';
+  tagCols = CONFIG.filterColumns.filter((c) => cols.includes(c));
 
   buildTagFilterBar();
   render();
@@ -43,6 +47,30 @@
     document.querySelectorAll('.tag.active').forEach((el) => el.classList.remove('active'));
     render();
   });
+
+  async function loadChangelog() {
+    try {
+      const log = await fetchSheet(CONFIG.changelogSheetName);
+      if (!log.rows.length) {
+        changelogBody.innerHTML = `<div class="changelog-entry">目前尚無更新紀錄。</div>`;
+        return;
+      }
+      const dateCol = log.cols[0];
+      const otherCols = log.cols.slice(1);
+      changelogBody.innerHTML = log.rows
+        .map((row) => {
+          const date = String(row[dateCol] || '').trim();
+          const msg = otherCols
+            .map((c) => String(row[c] || '').trim())
+            .filter(Boolean)
+            .join(' ・ ');
+          return `<div class="changelog-entry">${date ? `<span class="cl-date">${escapeHtml(date)}</span>` : ''}${escapeHtml(msg)}</div>`;
+        })
+        .join('');
+    } catch (err) {
+      changelogBody.innerHTML = `<div class="error-box">更新日誌載入失敗：${escapeHtml(err.message)}</div>`;
+    }
+  }
 
   function buildTagFilterBar() {
     if (!tagCols.length) {
@@ -94,8 +122,15 @@
   function render() {
     const q = searchInput.value.trim().toLowerCase();
 
+    // 篩選內容僅比對指定欄位（C/F/G/H）的值是否包含搜尋字串，或符合已勾選的 TAG
     const filtered = rows.filter((row) => {
-      if (q && !String(row[nameCol] || '').toLowerCase().includes(q)) return false;
+      if (q) {
+        const nameMatch = String(row[nameCol] || '').toLowerCase().includes(q);
+        const tagTextMatch = tagCols.some((c) =>
+          String(row[c] || '').toLowerCase().includes(q)
+        );
+        if (!nameMatch && !tagTextMatch) return false;
+      }
       for (const key of activeTags) {
         const [col, val] = key.split('::');
         if (String(row[col] || '').trim() !== val) return false;
@@ -113,6 +148,7 @@
 
   function renderCard(row) {
     const name = String(row[nameCol] || '未命名工作室').trim();
+    const icon = iconCol ? String(row[iconCol] || '').trim() : '';
     const href = `studio.html?name=${encodeURIComponent(name)}`;
 
     const tagHtml = tagCols
@@ -121,22 +157,15 @@
       .map((v) => `<span class="tag static">${escapeHtml(v)}</span>`)
       .join('');
 
-    const extraHtml = extraCols
-      .map((col) => {
-        const v = String(row[col] || '').trim();
-        if (!v) return '';
-        return `<div>${escapeHtml(col)}：${linkify(v)}</div>`;
-      })
-      .filter(Boolean)
-      .join('');
-
     return `
       <div class="card">
         <a class="card-link" href="${href}">
-          <h3>${escapeHtml(name)}</h3>
+          <div class="card-head">
+            ${icon ? `<img class="card-icon" src="${escapeHtml(icon)}" alt="${escapeHtml(name)} icon" loading="lazy" onerror="this.style.display='none'">` : ''}
+            <h3>${escapeHtml(name)}</h3>
+          </div>
           <div class="card-tags">${tagHtml}</div>
         </a>
-        ${extraHtml ? `<div class="card-extra">${extraHtml}</div>` : ''}
       </div>
     `;
   }

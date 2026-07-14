@@ -72,6 +72,52 @@ a:hover { text-decoration: underline; }
 
 main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
 
+/* ---------- Changelog (collapsible) ---------- */
+.changelog {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+.changelog summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 14px 20px;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.changelog summary::-webkit-details-marker { display: none; }
+.changelog summary::after {
+  content: '展開 ▾';
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+.changelog[open] summary::after { content: '收合 ▴'; }
+.changelog-body {
+  padding: 4px 22px 18px;
+  border-top: 1px dashed var(--rule);
+}
+.changelog-entry {
+  font-size: 0.88rem;
+  padding: 8px 0;
+  border-bottom: 1px dashed var(--rule);
+}
+.changelog-entry:last-child { border-bottom: none; }
+.changelog-entry .cl-date {
+  font-weight: 700;
+  color: var(--gold-dark);
+  margin-right: 8px;
+}
+
 /* ---------- Filter / search bar ---------- */
 .filter-panel {
   background: var(--paper-card);
@@ -185,10 +231,33 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   text-decoration: none;
 }
 .card a.card-link:hover { text-decoration: none; }
+.card .card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0 10px 6px;
+}
+.card .card-icon,
+.studio-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  flex-shrink: 0;
+}
+.studio-icon { width: 68px; height: 68px; }
 .card h3 {
   font-family: 'Noto Serif TC', serif;
   font-size: 1.25rem;
-  margin: 6px 0 10px 6px;
+  margin: 0;
+}
+.studio-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 6px;
 }
 .card .card-tags {
   display: flex;
