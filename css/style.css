@@ -78,7 +78,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   border: 1px solid var(--rule);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
+  margin-bottom: 36px;
   overflow: hidden;
 }
 .changelog summary {
@@ -273,6 +273,40 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   padding-top: 8px;
 }
 
+/* 體驗評價勳章 — 固定卡片右上角，圓形獎牌樣式 */
+.card .rating-badge {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: #fff;
+  background: radial-gradient(circle at 35% 30%, #f0cd82, var(--gold-dark));
+  border: 2.5px solid var(--paper-card);
+  box-shadow: 0 3px 0 rgba(38,52,74,0.18), 0 8px 16px -8px rgba(38,52,74,0.55);
+  z-index: 2;
+  line-height: 1;
+}
+
+/* 廠商介紹 ICON 圖示列 */
+.profile-icons { align-items: center; }
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
+  background: #fff;
+}
+
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -298,12 +332,55 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
 
 /* ---------- Studio detail page ---------- */
 .back-link { display: inline-block; margin-bottom: 20px; font-size: 0.9rem; }
+
+.studio-toprow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.review-report-link {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1.5px solid var(--gold-dark);
+  color: var(--gold-dark);
+  background: #fff8ea;
+  border-radius: 999px;
+  padding: 9px 18px;
+  white-space: nowrap;
+}
+.review-report-link:hover {
+  background: var(--gold-dark);
+  color: #fff;
+  text-decoration: none;
+}
+
 .studio-title {
   font-family: 'Noto Serif TC', serif;
   font-weight: 900;
   font-size: 2rem;
   margin: 0 0 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
 }
+
+/* 勳章樣式在工作室名稱旁改為行內顯示（非卡片右上角絕對定位） */
+.rating-badge--inline {
+  position: static;
+  width: 40px;
+  height: 40px;
+  font-size: 1rem;
+  box-shadow: 0 2px 0 rgba(38,52,74,0.18), 0 5px 12px -6px rgba(38,52,74,0.5);
+}
+
 .studio-sub {
   color: var(--ink-soft);
   margin-bottom: 28px;
