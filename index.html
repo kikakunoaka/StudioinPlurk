@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>工作室評價目錄</title>
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <div class="brand">工作室評價目錄<small>CUSTOM STUDIO REVIEW CATALOG</small></div>
+  </div>
+</header>
+
+<main>
+  <div class="filter-panel">
+    <div class="search-row">
+      <input type="search" id="searchInput" placeholder="搜尋工作室名稱…" autocomplete="off" />
+      <button class="clear-btn" id="clearBtn">清除篩選</button>
+    </div>
+    <div class="tag-groups" id="tagGroups">
+      <div class="loading">分類載入中…</div>
+    </div>
+  </div>
+
+  <div id="content">
+    <div class="loading">資料載入中，請稍候…</div>
+  </div>
+</main>
+
+<footer class="site-footer">資料同步自 Google 試算表 · 內容以試算表為準</footer>
+
+<script src="js/config.js"></script>
+<script src="js/sheets.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

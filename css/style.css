@@ -1,0 +1,310 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap');
+
+:root {
+  --paper: #eef0e6;
+  --paper-card: #f9f8f2;
+  --ink: #26344a;
+  --ink-soft: #5b6577;
+  --gold: #d3a24a;
+  --gold-dark: #a97a2e;
+  --rose: #c17b82;
+  --rule: #d8d5c4;
+  --shadow: 0 2px 0 rgba(38, 52, 74, 0.06), 0 10px 24px -14px rgba(38, 52, 74, 0.35);
+  --radius: 14px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(38,52,74,0.06) 1px, transparent 0);
+  background-size: 22px 22px;
+  color: var(--ink);
+  font-family: 'Noto Sans TC', sans-serif;
+  line-height: 1.6;
+}
+
+a { color: var(--gold-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ---------- Top bar ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: var(--paper-card);
+  border-bottom: 2px solid var(--ink);
+  padding: 18px 24px;
+}
+.site-header .inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.brand {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+.brand::before {
+  content: '⟡ ';
+  color: var(--gold-dark);
+}
+.brand small {
+  display: block;
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.15em;
+  margin-top: 2px;
+}
+
+main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
+
+/* ---------- Filter / search bar ---------- */
+.filter-panel {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 20px 22px;
+  margin-bottom: 32px;
+}
+.filter-panel .search-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.search-row input[type="search"] {
+  flex: 1;
+  font: inherit;
+  font-size: 1rem;
+  padding: 10px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+}
+.search-row input[type="search"]:focus {
+  outline: 3px solid var(--gold);
+  outline-offset: 1px;
+}
+.clear-btn {
+  font: inherit;
+  font-size: 0.85rem;
+  border: 1.5px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.clear-btn:hover { background: var(--ink); color: var(--paper-card); }
+
+.tag-groups { display: flex; flex-direction: column; gap: 10px; }
+.tag-group { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.tag-group .group-label {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  min-width: 4.2em;
+}
+.tag-chips { display: flex; gap: 6px; flex-wrap: wrap; }
+
+/* Tag pill — the signature "catalog stamp" chip, used both as filter chips and card tags */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.78rem;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1.3px dashed var(--gold-dark);
+  color: var(--gold-dark);
+  background: #fff8ea;
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+.tag:hover { background: #fdeec9; }
+.tag.active {
+  background: var(--gold-dark);
+  color: #fff;
+  border-style: solid;
+}
+.tag.static {
+  cursor: default;
+  border-style: solid;
+}
+.tag.static:hover { background: #fff8ea; }
+
+/* ---------- Studio cards ---------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 22px;
+}
+.card {
+  position: relative;
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px 20px 18px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1.5px var(--rule);
+}
+.card:hover {
+  transform: translateY(-3px) rotate(-0.3deg);
+  box-shadow: 0 4px 0 rgba(38,52,74,0.08), 0 18px 30px -16px rgba(38,52,74,0.4);
+}
+.card a.card-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+.card a.card-link:hover { text-decoration: none; }
+.card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25rem;
+  margin: 6px 0 10px 6px;
+}
+.card .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 4px 4px;
+}
+.card .card-extra {
+  margin: 10px 4px 0;
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  border-top: 1px dashed var(--rule);
+  padding-top: 8px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-soft);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: var(--ink-soft);
+}
+
+.error-box {
+  background: #fdeceb;
+  border: 1.5px solid var(--rose);
+  color: #8a3b3b;
+  border-radius: var(--radius);
+  padding: 16px 18px;
+  font-size: 0.9rem;
+}
+
+/* ---------- Studio detail page ---------- */
+.back-link { display: inline-block; margin-bottom: 20px; font-size: 0.9rem; }
+.studio-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 2rem;
+  margin: 0 0 6px;
+}
+.studio-sub {
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+  font-size: 0.9rem;
+}
+
+.section-label {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 40px 0 16px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: repeating-linear-gradient(90deg, var(--ink) 0 6px, transparent 6px 11px);
+  opacity: 0.5;
+}
+
+.profile-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 24px 26px;
+}
+.kv-grid {
+  display: grid;
+  grid-template-columns: minmax(90px, auto) 1fr;
+  gap: 10px 20px;
+}
+.kv-grid dt {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  color: var(--gold-dark);
+  font-size: 0.9rem;
+}
+.kv-grid dd { margin: 0; }
+
+.review-list { display: flex; flex-direction: column; gap: 16px; }
+.review-card {
+  background: var(--paper-card);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 18px 20px;
+}
+.review-card .review-field {
+  font-size: 0.94rem;
+  margin: 4px 0;
+}
+.review-card .review-field .f-label {
+  font-weight: 700;
+  color: var(--gold-dark);
+  margin-right: 6px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  text-align: center;
+  padding: 28px;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+@media (max-width: 560px) {
+  .kv-grid { grid-template-columns: 1fr; }
+  .kv-grid dt { color: var(--gold-dark); }
+}
