@@ -23,7 +23,7 @@
 
   // ---- 主頁工作室列表（讀取「工作室列表」分頁全部欄位） ----
   try {
-    const data = await fetchSheet(CONFIG.listSheetName);
+    const data = await fetchSheetSafe(CONFIG.listSheetName);
     cols = data.cols;
     rows = data.rows;
   } catch (err) {
@@ -37,8 +37,10 @@
   }
 
   nameCol = cols[0];
-  iconCol = cols.find((c) => c.trim().toUpperCase() === CONFIG.iconColumnName.toUpperCase()) || '';
-  ratingCol = cols.find((c) => c.trim() === CONFIG.ratingColumnName.trim()) || '';
+  iconCol = findColumn(cols, CONFIG.iconColumnName);
+  // 體驗評價：優先直接抓 CONFIG.ratingColumnLetter 指定的欄位位置（預設 H 欄），
+  // 不管標題文字寫什麼；抓不到資料才退而比對標題文字
+  ratingCol = pickRatingColumn(cols, rows);
   // 卡片顯示「工作室列表」的全部欄位內容，僅排除名稱／ICON／體驗評價
   // （名稱是標題、ICON 顯示成圖片、體驗評價顯示成右上角勳章，三者都不當一般 TAG）
   tagCols = cols.filter((c) => c !== nameCol && c !== iconCol && c !== ratingCol);

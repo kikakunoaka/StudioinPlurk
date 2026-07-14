@@ -11,18 +11,21 @@
 
   document.title = `${studioName}｜噗浪周邊客製工作室`;
 
-  // ---- 嘗試從主頁工作室列表抓 ICON（非必要，抓不到就略過）----
+  // ---- 嘗試從主頁工作室列表抓 ICON、體驗評價（非必要，抓不到就略過）----
   let iconUrl = '';
+  let ratingValue = '';
   try {
-    const list = await fetchSheet(CONFIG.listSheetName);
-    const iconCol = list.cols.find((c) => c.trim().toUpperCase() === CONFIG.iconColumnName.toUpperCase());
+    const list = await fetchSheetSafe(CONFIG.listSheetName);
+    const iconCol = findColumn(list.cols, CONFIG.iconColumnName);
+    const ratingCol = pickRatingColumn(list.cols, list.rows);
     const nameCol = list.cols[0];
-    if (iconCol) {
-      const match = list.rows.find((r) => String(r[nameCol] || '').trim() === studioName);
-      if (match) iconUrl = String(match[iconCol] || '').trim();
+    const match = list.rows.find((r) => String(r[nameCol] || '').trim() === studioName);
+    if (match) {
+      if (iconCol) iconUrl = String(match[iconCol] || '').trim();
+      if (ratingCol) ratingValue = String(match[ratingCol] || '').trim();
     }
   } catch (e) {
-    /* icon 抓不到不影響其餘內容，略過 */
+    /* icon／評價抓不到不影響其餘內容，略過 */
   }
 
   // ---- 廠商介紹：A1:G16，A 欄為標題、B:G 欄為內容 ----
@@ -64,12 +67,18 @@
   }
 
   contentEl.innerHTML = `
-    <div class="studio-head">
-      ${iconUrl ? `<img class="studio-icon" src="${escapeHtml(iconUrl)}" alt="${escapeHtml(studioName)} icon" loading="lazy" onerror="this.style.display='none'">` : ''}
-      <div>
-        <h1 class="studio-title">${escapeHtml(studioName)}</h1>
-        <div class="studio-sub">工作室介紹與體驗者心得</div>
+    <div class="studio-toprow">
+      <div class="studio-head">
+        ${iconUrl ? `<img class="studio-icon" src="${escapeHtml(iconUrl)}" alt="${escapeHtml(studioName)} icon" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <div>
+          <h1 class="studio-title">
+            ${escapeHtml(studioName)}
+            ${ratingValue ? `<span class="rating-badge rating-badge--inline" title="體驗評價">${escapeHtml(ratingValue)}</span>` : ''}
+          </h1>
+          <div class="studio-sub">工作室介紹與體驗者心得</div>
+        </div>
       </div>
+      ${CONFIG.reviewFormUrl ? `<a class="review-report-link" href="${escapeHtml(CONFIG.reviewFormUrl)}" target="_blank" rel="noopener">📝 體驗回報</a>` : ''}
     </div>
 
     <div class="section-label">廠商介紹</div>
