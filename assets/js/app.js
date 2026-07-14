@@ -36,7 +36,7 @@
       : (s[F.NAME] || '?').slice(0, 1);
 
     return `
-      <div class="charm-card">
+      <div class="charm-card" data-studio-name="${encodeURIComponent(s[F.NAME] || '')}" role="link" tabindex="0" aria-label="查看${s[F.NAME] || '這間工作室'}詳情">
         <div class="charm-icon">${iconHtml}</div>
         <h3>${s[F.NAME] || '未命名工作室'}</h3>
         ${mediaIconsHtml(s, F)}
@@ -48,10 +48,30 @@
         <div class="tag-row">
           ${items.map((t) => `<span class="tag">${t}</span>`).join('')}
         </div>
-        <a class="view-link" href="studio.html?name=${encodeURIComponent(s[F.NAME] || '')}">查看詳情</a>
       </div>
     `;
   }
+
+  function goToStudio(name) {
+    if (!name) return;
+    window.location.href = `studio.html?name=${encodeURIComponent(name)}`;
+  }
+
+  // 卡片整張可點擊：點到噗浪／官網／E-mail 圖示時要讓連結自己動作，不要連動跳轉詳情頁；
+  // 其餘任何地方點擊，都導去該工作室的詳情頁。也支援鍵盤 Enter / 空白鍵操作，維持可及性。
+  gridEl.addEventListener('click', (e) => {
+    const card = e.target.closest('.charm-card');
+    if (!card) return;
+    if (e.target.closest('.media-icon')) return;
+    goToStudio(decodeURIComponent(card.dataset.studioName || ''));
+  });
+  gridEl.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return;
+    const card = e.target.closest('.charm-card');
+    if (!card) return;
+    e.preventDefault();
+    goToStudio(decodeURIComponent(card.dataset.studioName || ''));
+  });
 
   function applyFilters() {
     const q = searchInput.value.trim().toLowerCase();

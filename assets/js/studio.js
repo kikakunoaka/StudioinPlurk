@@ -84,22 +84,34 @@
         const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
         scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・平均體驗分數</span>`;
       }
-      reviewListEl.innerHTML = studioReviews.map((r) => `
+      reviewListEl.innerHTML = studioReviews.map((r) => {
+        const imageUrls = (RF.IMAGE_URLS || [])
+          .map((field) => r[field])
+          .filter(Boolean);
+        const imagesHtml = imageUrls.length
+          ? `<div class="review-images">
+              ${imageUrls.map((url) => `
+                <a class="review-image-link" href="${url}" target="_blank" rel="noopener">
+                  <img class="review-thumb" src="${url}" alt="${r[RF.STUDIO_NAME] || ''} 返圖" loading="lazy">
+                </a>
+              `).join('')}
+            </div>`
+          : '';
+        return `
         <div class="review-card">
           <div class="review-top">
             <span class="review-reviewer">${r[RF.ORDER_ITEM] || '未填寫委印項目'}</span>
             ${r[RF.SCORE] ? `<span class="review-score">⭐ ${r[RF.SCORE]}</span>` : ''}
           </div>
           <div class="review-meta">
-            ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ ${r[RF.REVIEWER]}` : ''}
+            ${r[RF.TIMESTAMP] ? r[RF.TIMESTAMP] : ''}${r[RF.REVIEWER] ? ` ・ 體驗者：${r[RF.REVIEWER]}` : ''}
           </div>
           <div class="review-comment">${formatTextWithLinks(r[RF.COMMENT])}</div>
           ${r[RF.NOTE] ? `<div class="review-meta" style="margin-top:8px;">備註：${formatTextWithLinks(r[RF.NOTE])}</div>` : ''}
-          ${r[RF.IMAGE_URL] ? `<a class="review-image-link" href="${r[RF.IMAGE_URL]}" target="_blank" rel="noopener">
-              <img class="review-thumb" src="${r[RF.IMAGE_URL]}" alt="${r[RF.STUDIO_NAME] || ''} 返圖" loading="lazy">
-            </a>` : ''}
+          ${imagesHtml}
         </div>
-      `).join('');
+      `;
+      }).join('');
     } else {
       renderState(reviewListEl, '目前還沒有體驗回報。', false);
       reviewListEl.querySelector('.spinner')?.remove();

@@ -132,11 +132,17 @@ button, input, select{ font-family: inherit; }
   border: 1px solid var(--line);
   padding: 22px 20px 18px;
   box-shadow: 0 2px 10px -4px var(--shadow);
-  transition: transform .15s ease, box-shadow .15s ease;
+  transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
+  cursor: pointer;
 }
 .charm-card:hover{
   transform: translateY(-3px);
   box-shadow: 0 10px 20px -10px var(--shadow);
+  border-color: var(--accent);
+}
+.charm-card:focus-visible{
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 .charm-icon{
   width: 56px; height:56px; border-radius: 50%;
@@ -166,9 +172,13 @@ button, input, select{ font-family: inherit; }
   display:inline-flex; align-items:center; justify-content:center;
   height:30px; width:30px;
   opacity:.82; transition: opacity .15s ease, transform .15s ease;
+  position: relative; z-index: 1; /* 確保點得到圖示連結，不會被卡片整體點擊蓋掉 */
 }
 .media-icon img{ height:100%; width:100%; object-fit:contain; }
 .media-icon:hover{ opacity:1; transform: translateY(-2px); }
+
+/* 首頁卡片上的媒體圖示縮小成 15px，詳情頁維持 30px */
+.charm-card .media-icon{ height:15px; width:15px; }
 
 .badge-row{ display:flex; flex-wrap:wrap; gap:6px; justify-content:center; margin-bottom:12px; }
 .badge{
@@ -187,15 +197,6 @@ button, input, select{ font-family: inherit; }
   font-size:.7rem; padding:3px 10px; border-radius: var(--radius-sm);
   background: var(--accent-soft); color: var(--accent); font-weight:500;
 }
-
-.charm-card .view-link{
-  display:block; text-align:center; margin-top:16px;
-  font-family: var(--font-mono); font-weight:600; font-size:.8rem;
-  color: var(--accent); background: var(--accent-soft);
-  border-radius: 999px; padding: 8px 0;
-  transition: background .15s, color .15s;
-}
-.charm-card .view-link:hover{ background: var(--accent); color: var(--surface); }
 
 /* ===================== States ===================== */
 .state-msg{
@@ -264,9 +265,12 @@ button, input, select{ font-family: inherit; }
 }
 .review-meta{ font-family: var(--font-mono); font-size:.74rem; color: var(--ink-soft); margin-bottom:10px; }
 .review-comment{ white-space: pre-wrap; }
-.review-image-link{ display:block; margin-top:10px; }
+.review-images{
+  display:flex; flex-wrap:wrap; gap:10px; margin-top:10px; max-width:500px;
+}
+.review-image-link{ display:block; flex: 1 1 150px; min-width:0; }
 .review-thumb{
-  display:block; width:100%; max-width:300px; border-radius: var(--radius-md);
+  display:block; width:100%; border-radius: var(--radius-md);
   border: 1px solid var(--line); box-shadow: 0 2px 10px -4px var(--shadow);
   transition: opacity .15s ease;
 }
