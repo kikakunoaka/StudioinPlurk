@@ -16,15 +16,14 @@ const CONFIG = {
   STUDIO_FIELDS: {
     NAME: '工作室',
     PLURK: '噗浪帳號',
+    WEBSITE: '官方網站',
+    EMAIL: 'E-Mail',
     ICON: 'ICON',
     STATUS: '營運狀態',
-    PLATFORM: '平台',
     ORDER_TYPE: '委託方式',
     FACTORY: '工廠',
     ITEMS: '客製項目',
     NOTE: '評價',
-    WEBSITE: '官方網站',
-    EMAIL: 'E-mail',
   },
 
   // 「體驗回報」分頁欄位名稱

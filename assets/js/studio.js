@@ -51,7 +51,6 @@
         ${mediaIconsHtml(studio, F)}
         <div class="badge-row">
           <span class="badge ${status.cls}">${status.label}</span>
-          ${studio[F.PLATFORM] ? `<span class="badge">${studio[F.PLATFORM]}</span>` : ''}
           ${studio[F.FACTORY] ? `<span class="badge">${studio[F.FACTORY]}</span>` : ''}
         </div>
       </div>

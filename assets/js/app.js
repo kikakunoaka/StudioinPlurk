@@ -42,7 +42,6 @@
         ${mediaIconsHtml(s, F)}
         <div class="badge-row">
           <span class="badge ${status.cls}">${status.label}</span>
-          ${s[F.PLATFORM] ? `<span class="badge">${s[F.PLATFORM]}</span>` : ''}
           ${s[F.FACTORY] ? `<span class="badge">${s[F.FACTORY]}</span>` : ''}
           ${score ? `<span class="badge badge-score">⭐ ${score.avg}（${score.count}則）</span>` : ''}
         </div>
