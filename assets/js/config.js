@@ -50,7 +50,7 @@ const CONFIG = {
   // 營運狀況對應的顯示樣式（需與試算表「營運狀況」欄位的選項文字完全一致）
   STATUS_STYLE: {
     '營運中': { label: '營運中', cls: 'status-active' },
-    '無限期休止': { label: '休止中', cls: 'status-pause' },
+    '休止中': { label: '休止中', cls: 'status-pause' },
     '停止營運': { label: '已停止', cls: 'status-stop' },
     '未知': { label: '狀態未知', cls: 'status-unknown' },
   },
