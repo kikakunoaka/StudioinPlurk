@@ -75,7 +75,10 @@ async function fetchRange(sheetName, range, headerRow) {
     sheet: sheetName,
     range: range,
   });
-  if (headerRow) params.set('headers', '1');
+  // 明確指定 headers=0 或 1，避免 Google 試算表在未指定時自動猜測
+  // 第一列是否為標題列 — 猜錯會導致資料整批消失（例如「更新日誌」每一列
+  // 都是資料、沒有標題列，若被誤判為有標題，第一列就會被吃掉）。
+  params.set('headers', headerRow ? '1' : '0');
 
   const url = `https://docs.google.com/spreadsheets/d/${CONFIG.sheetId}/gviz/tq?${params.toString()}&_ts=${Date.now()}`;
 
@@ -126,9 +129,21 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-/** 判斷欄位是否應視為補充資訊（連結、介紹等）而非分類 TAG */
-function isNonTagColumn(colName) {
-  return CONFIG.nonTagKeywords.some((kw) => colName.includes(kw));
+/**
+ * 將一個儲存格內容依「半形逗號」拆解成多個 TAG 值
+ * 例如 "常態團,獨立單" → ["常態團", "獨立單"]
+ * 會自動去除每個值前後的空白，並過濾空字串
+ */
+function splitTagValues(text) {
+  return String(text || '')
+    .split(',')
+    .map((v) => v.trim())
+    .filter(Boolean);
+}
+
+/** 判斷字串是否為圖片／ICON 網址 */
+function isUrl(text) {
+  return /^https?:\/\//i.test(String(text || '').trim());
 }
 
 /** 若字串是網址則回傳可點擊連結的 HTML，否則回傳純文字 */

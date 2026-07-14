@@ -25,17 +25,24 @@
     /* icon 抓不到不影響其餘內容，略過 */
   }
 
-  // ---- 廠商介紹：A1:G15，A 欄為標題、B:G 欄為內容 ----
+  // ---- 廠商介紹：A1:G16，A 欄為標題、B:G 欄為內容 ----
+  // 第一列（A1 為標題、B1 起為內容）視為 ICON 圖示列，網址會顯示成圖片；
+  // 其餘列（A2:G16）顯示成橢圓 TAG，內容若含半形逗號則拆解成多個 TAG
   let profileRows = [];
   let profileError = null;
   try {
     const raw = await fetchRange(studioName, CONFIG.profileRange, false);
     // raw.cols 例如 ['A','B','C','D','E','F','G']；raw.rows 為陣列的陣列
     profileRows = raw.rows
-      .map((rowArr) => {
+      .map((rowArr, idx) => {
         const label = String(rowArr[0] || '').trim();
-        const values = rowArr.slice(1).map((v) => String(v || '').trim()).filter(Boolean);
-        return { label, values };
+        const rawValues = rowArr.slice(1).map((v) => String(v || '').trim()).filter(Boolean);
+        if (idx === 0) {
+          // 第一列：轉成 ICON 圖示
+          return { label, values: rawValues, isIcon: true };
+        }
+        const values = rawValues.flatMap((v) => splitTagValues(v));
+        return { label, values, isIcon: false };
       })
       .filter((r) => r.label && r.values.length);
   } catch (err) {
@@ -81,7 +88,21 @@
     }
 
     const blocks = profileRows
-      .map(({ label, values }) => {
+      .map(({ label, values, isIcon }) => {
+        if (isIcon) {
+          const iconsHtml = values
+            .map((v) =>
+              isUrl(v)
+                ? `<img class="profile-icon" src="${escapeHtml(v)}" alt="${escapeHtml(label)}" loading="lazy" onerror="this.style.display='none'">`
+                : `<span class="tag static">${escapeHtml(v)}</span>`
+            )
+            .join('');
+          return `
+            <div class="tag-group profile-icon-row" style="margin-bottom:12px;">
+              <span class="group-label">${escapeHtml(label)}</span>
+              <div class="tag-chips profile-icons">${iconsHtml}</div>
+            </div>`;
+        }
         const tagHtml = values.map((v) => `<span class="tag static">${linkify(v)}</span>`).join('');
         return `
           <div class="tag-group" style="margin-bottom:12px;">

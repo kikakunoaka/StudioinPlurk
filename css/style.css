@@ -78,7 +78,7 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   border: 1px solid var(--rule);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  margin-bottom: 20px;
+  margin-bottom: 36px;
   overflow: hidden;
 }
 .changelog summary {
@@ -271,6 +271,40 @@ main { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
   color: var(--ink-soft);
   border-top: 1px dashed var(--rule);
   padding-top: 8px;
+}
+
+/* 體驗評價勳章 — 固定卡片右上角，圓形獎牌樣式 */
+.card .rating-badge {
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  min-width: 46px;
+  height: 46px;
+  padding: 0 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.15rem;
+  color: #fff;
+  background: radial-gradient(circle at 35% 30%, #f0cd82, var(--gold-dark));
+  border: 2.5px solid var(--paper-card);
+  box-shadow: 0 3px 0 rgba(38,52,74,0.18), 0 8px 16px -8px rgba(38,52,74,0.55);
+  z-index: 2;
+  line-height: 1;
+}
+
+/* 廠商介紹 ICON 圖示列 */
+.profile-icons { align-items: center; }
+.profile-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--ink);
+  background: #fff;
 }
 
 .empty-state {
