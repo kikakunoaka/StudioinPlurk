@@ -87,10 +87,10 @@ button, input, select{ font-family: inherit; }
 }
 
 /* ===================== Hero ===================== */
-.hero{ padding: 34px 0 26px; }
-.hero p{ max-width: 560px; color: var(--ink-soft); font-size: .96rem; margin: 0 0 18px; }
+.hero{ padding: 34px 0 26px; text-align: center; }
+.hero p{ width: 100%; max-width: min(90%, 640px); color: var(--ink-soft); font-size: .96rem; margin: 0 auto 18px; }
 
-.search-box{ display:flex; gap:10px; max-width: 480px; }
+.search-box{ display:flex; gap:10px; width: 100%; max-width: min(90%, 480px); margin: 0 auto; }
 .search-box input{
   flex:1; border: 1px solid var(--line); background: var(--surface);
   border-radius: 999px; padding: 11px 18px; font-size: .92rem; color: var(--ink);
@@ -100,10 +100,13 @@ button, input, select{ font-family: inherit; }
 
 /* ===================== Filters ===================== */
 .filters{
-  margin: 22px 0 6px;
+  width: 100%;
+  max-width: min(90%, 640px);
+  margin: 22px auto 6px;
   display:flex; flex-wrap:wrap; gap: 14px 12px;
+  justify-content: center;
 }
-.filter-group{ display:flex; flex-direction:column; gap:6px; }
+.filter-group{ display:flex; flex-direction:column; align-items:center; gap:6px; }
 .filter-group label{
   font-family: var(--font-mono); font-size:.7rem; font-weight:700; color: var(--ink-soft);
 }
@@ -296,13 +299,15 @@ button, input, select{ font-family: inherit; }
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
-  margin: 0 0 20px;
+  margin: 0 auto 20px;
   overflow: hidden;
-  max-width: 560px;
+  width: 100%;
+  max-width: min(90%, 640px);
 }
 .changelog-summary{
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 13px 18px;
   font-weight: 600;
   cursor: pointer;
