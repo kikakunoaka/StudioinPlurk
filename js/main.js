@@ -16,11 +16,6 @@
   // ---- 更新日誌（可折疊區塊） ----
   loadChangelog();
 
-
-
-
-
-  
   // ---- 主頁工作室列表 ----
   try {
     const data = await fetchSheet(CONFIG.listSheetName);
