@@ -82,7 +82,7 @@
       const scores = studioReviews.map((r) => parseFloat(r[RF.SCORE])).filter((n) => !Number.isNaN(n));
       if (scores.length) {
         const avg = (scores.reduce((a, b) => a + b, 0) / scores.length).toFixed(1);
-        scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・平均經驗分數</span>`;
+        scoreSummaryEl.innerHTML = `<span class="num">${avg}</span><span class="of">/ 5・評價平均分數</span>`;
       }
 
       // 排序：預設「評價新→舊」（依時間戳記），另可切換「評價高→低」（依經驗分數）
