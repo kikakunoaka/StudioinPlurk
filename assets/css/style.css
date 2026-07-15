@@ -75,6 +75,16 @@ button, input, select{ font-family: inherit; }
 }
 .brand .charm-dot img{ width:100%; height:100%; display:block; }
 .brand small{ display:block; font-family: var(--font-mono); font-weight:600; font-size:.68rem; color: var(--ink-soft); letter-spacing:.06em; }
+.brand .brand-squeeze{
+  display: inline-block;
+  font-size: .5em;        /* 縮小成主標題的一半大小 */
+  font-weight: 600;
+  letter-spacing: -1px;   /* 字距收緊，擠在一起 */
+  margin: 0 1px;
+  transform: scaleX(.9);  /* 再水平壓扁一點點，更緊湊 */
+  vertical-align: 2px;    /* 微調對齊主標題的基線 */
+}
+
 
 .header-nav{ display:flex; align-items:center; gap:8px; flex-wrap: wrap; }
 .nav-back{
