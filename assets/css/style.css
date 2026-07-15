@@ -64,13 +64,6 @@ button, input, select{ font-family: inherit; }
   border-bottom: 1px solid var(--e);
 }
 
-.header-smalltitle {
-  font-size: 0.7em;           /* 調整為你認為適合的大小 */
-  vertical-align: middle;     /* 確保文字對齊基準線 */
-  display: inline-block;      /* 讓 margin 屬性生效 */
-  margin: 0 0.1em;            /* 微調左右間距，不讓文字太擠 */
-  line-height: 1;             /* 避免因為縮小文字而拉高整行的高度 */
-}
 
 .site-header .wrap{ display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap: wrap; }
 .brand{ display:flex; align-items:center; gap:10px; font-family: var(--font-display); font-weight:700; font-size: 1.25rem; color: var(--accent); }
