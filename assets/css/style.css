@@ -79,7 +79,7 @@ button, input, select{ font-family: inherit; }
   display: inline-block;
   font-size: .7em;
   font-weight: 600;
-  vertical-align: 8px;
+  vertical-align: -1px;
 }
 
 
