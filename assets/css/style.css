@@ -77,12 +77,12 @@ button, input, select{ font-family: inherit; }
 .brand small{ display:block; font-family: var(--font-mono); font-weight:600; font-size:.68rem; color: var(--ink-soft); letter-spacing:.06em; }
 .brand .brand-squeeze{
   display: inline-block;
-  font-size: .7em;        /* 縮小成主標題的一半大小 */
+  font-size: .7em;
   font-weight: 600;
-  letter-spacing: -1px;   /* 字距收緊，擠在一起 */
+  letter-spacing: -1px;
   margin: 0 1px;
-  transform: scaleX(.9);  /* 再水平壓扁一點點，更緊湊 */
-  vertical-align: 2px;    /* 微調對齊主標題的基線 */
+  transform: scaleX(.9);
+  vertical-align: bottom;   /* 改這裡：貼齊主標題那一行的最底部 */
 }
 
 
