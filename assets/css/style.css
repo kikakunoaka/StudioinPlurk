@@ -79,9 +79,6 @@ button, input, select{ font-family: inherit; }
   display: inline-block;
   font-size: .7em;
   font-weight: 600;
-  letter-spacing: -1px;
-  margin: 0 1px;
-  transform: scaleX(.9);
   vertical-align: bottom;   /* 改這裡：貼齊主標題那一行的最底部 */
 }
 
