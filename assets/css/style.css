@@ -294,7 +294,9 @@ button, input, select{ font-family: inherit; }
   background: var(--highlight-soft); border-radius:999px; padding:2px 12px; font-size:.82rem;
 }
 .review-meta{ font-family: var(--font-mono); font-size:.74rem; color: var(--ink-soft); margin-bottom:10px; }
+.review-meta a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
 .review-comment{ white-space: pre-wrap; }
+.review-comment a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
 .review-images{
   display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;
 }
