@@ -401,6 +401,89 @@ button, input, select{ font-family: inherit; }
   .studio-hero-info .charm-plurk, .studio-hero-info .badge-row{ justify-content:center; text-align:center; }
 }
 
+/* ===================== 使用說明 (Usage) ===================== */
+.usage-details{
+  background: linear-gradient(180deg, var(--highlight-soft) 0%, var(--surface) 90px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  margin: 0 auto 14px;
+  overflow: hidden;
+  width: 100%;
+  max-width: min(90%, 800px);
+  text-align: left;
+  box-shadow: 0 4px 14px var(--shadow);
+  transition: box-shadow .2s ease;
+}
+.usage-details[open]{ box-shadow: 0 6px 20px var(--shadow); }
+.usage-summary{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--ink);
+  cursor: pointer;
+  user-select: none;
+  list-style: none;
+}
+.usage-summary::-webkit-details-marker{ display: none; }
+.usage-icon{
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  background: var(--highlight);
+  color: #fff;
+  font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 2px 6px rgba(242,144,58,.35);
+}
+.usage-arrow{
+  margin-left: auto;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  transition: transform 0.2s ease;
+}
+.usage-details[open] .usage-arrow{ transform: rotate(180deg); }
+.usage-content{
+  border-top: 1px solid var(--line);
+  padding: 18px 20px 20px;
+  max-height: 320px;
+  overflow-y: auto;
+  background: var(--surface);
+}
+.usage-content::-webkit-scrollbar{ width: 6px; }
+.usage-content::-webkit-scrollbar-track{ background: transparent; }
+.usage-content::-webkit-scrollbar-thumb{ background: var(--highlight-soft); border-radius: 99px; }
+
+.usage-line{
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.usage-line:last-child{ margin-bottom: 0; }
+.usage-line-num{
+  flex-shrink: 0;
+  width: 20px; height: 20px;
+  margin-top: 1px;
+  border-radius: 50%;
+  background: var(--highlight-soft);
+  color: var(--highlight);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: .68rem;
+  display: flex; align-items: center; justify-content: center;
+}
+.usage-line-text{
+  margin: 0;
+  font-size: .87rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.usage-line-text a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
+
 /* ===================== 更新日誌 (Changelog) ===================== */
 .changelog-details{
   background: var(--surface);
