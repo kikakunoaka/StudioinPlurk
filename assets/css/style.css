@@ -314,8 +314,6 @@ button, input, select{ font-family: inherit; }
   margin-top: 12px;
   padding: 10px 14px;
   background: var(--highlight-soft);
-  border: 1px solid var(--line);
-  border-left: 3px solid var(--highlight);
   border-radius: var(--radius-md);
 }
 .review-reply-label{
