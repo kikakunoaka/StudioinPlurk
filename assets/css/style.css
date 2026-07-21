@@ -403,7 +403,7 @@ button, input, select{ font-family: inherit; }
 
 /* ===================== 使用說明 (Usage) ===================== */
 .usage-details{
-  background: var(--accent-soft);
+  background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
   margin: 0 auto 14px;
