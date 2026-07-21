@@ -422,7 +422,7 @@ button, input, select{ font-family: inherit; }
   padding: 14px 18px;
   font-weight: 700;
   font-family: var(--font-display);
-  font-size: 1rem;
+  font-size: .72rem;
   color: var(--ink);
   cursor: pointer;
   user-select: none;
@@ -478,7 +478,7 @@ button, input, select{ font-family: inherit; }
 }
 .usage-line-text{
   margin: 0;
-  font-size: .87rem;
+  font-size: .7rem;
   color: var(--ink-soft);
   line-height: 1.7;
 }
