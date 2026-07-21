@@ -313,14 +313,13 @@ button, input, select{ font-family: inherit; }
 .review-reply{
   margin-top: 12px;
   padding: 10px 14px;
-  background: var(--highlight-soft);
+  background: var(--bg);
   border: 1px solid var(--line);
   border-left: 3px solid var(--highlight);
   border-radius: var(--radius-md);
 }
 .review-reply-label{
   font-family: var(--font-mono); font-size:.74rem; font-weight:700;
-  color: var(--highlight); margin-bottom: 4px;
 }
 .review-reply-content{ white-space: pre-wrap; }
 .review-reply-content a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
