@@ -34,6 +34,7 @@
         <span>噗浪<span class="brand-squeeze">人在用的</span>周邊客製工作室<small>CUSTOM STUDIO with PLURKer</small></span>
     </a>
     <nav class="header-nav">
+      <a class="nav-back" href="#usageGuide" id="navUsageGuide">使用說明</a>
       <a class="nav-back" href="https://www.plurk.com/p/3iwsb1k1ce" target="_blank" rel="noopener">偷偷說本舖</a>
       <a class="nav-back" href="https://forms.gle/vKrqEjvEFRfstep89" target="_blank" rel="noopener">經驗分享</a>
       <a class="nav-back" href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?gid=329307325#gid=329307325" target="_blank" rel="noopener">結果確認</a>
@@ -46,17 +47,61 @@
     <p>旨在整理工作室資訊、經驗分享、評價等等</br>
       抓bug、修正、許願、建議等可於上方連結留言</p>
 
-    <details class="changelog-details">
-      <summary class="changelog-summary">
-        <span class="changelog-dot"></span>
-        <span>更新日誌</span>
-        <span class="changelog-arrow">👇</span>
-      </summary>
-      <div class="changelog-content" id="changelogContent">
-        <div class="spinner" style="width:20px; height:20px; margin:10px auto;"></div>
-        <p style="text-align:center; font-size:0.85rem; color:var(--ink-soft);">日誌載入中...</p>
-      </div>
-    </details>
+    <div class="hero-details-row">
+      <details class="changelog-details" id="usageGuide">
+        <summary class="changelog-summary">
+          <span class="changelog-dot"></span>
+          <span>使用說明</span>
+          <span class="changelog-arrow">👇</span>
+        </summary>
+        <div class="changelog-content guide-content">
+          <div class="guide-step">
+            <span class="guide-step-num">1</span>
+            <div class="guide-step-body">
+              <h3>瀏覽 / 搜尋工作室</h3>
+              <p>用下方搜尋框輸入「工作室名稱」或「噗浪帳號」快速找到目標，也可以搭配下面的篩選與排序條件。點卡片可進入詳情頁看完整聯絡方式與經驗分享。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">2</span>
+            <div class="guide-step-body">
+              <h3>分享委託經驗</h3>
+              <p>點右上角「經驗分享」填寫表單，送出後可到「結果確認」分頁核對內容，之後會顯示在該工作室詳情頁。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">3</span>
+            <div class="guide-step-body">
+              <h3>工作室想回覆評價</h3>
+              <p>可透過試算表內「委印工作室回覆評價表單」提交回覆，會核對回覆信箱是否為工作室本人。</p>
+            </div>
+          </div>
+          <div class="guide-step">
+            <span class="guide-step-num">4</span>
+            <div class="guide-step-body">
+              <h3>抓 bug、許願、建議</h3>
+              <p>歡迎到「偷偷說本舖」留言，管理者會盡快處理。</p>
+            </div>
+          </div>
+          <p class="guide-source-line">
+            完整說明與所有表單連結都整理在
+            <a href="https://docs.google.com/spreadsheets/d/1fpoLejfAJz6bQwAPA4xwTzQzW21Y-5ABPT1f-vaGwsQ/edit?gid=1817844298#gid=1817844298" target="_blank" rel="noopener">試算表「使用說明」分頁</a>。
+          </p>
+        </div>
+      </details>
+
+      <details class="changelog-details">
+        <summary class="changelog-summary">
+          <span class="changelog-dot"></span>
+          <span>更新日誌</span>
+          <span class="changelog-arrow">👇</span>
+        </summary>
+        <div class="changelog-content" id="changelogContent">
+          <div class="spinner" style="width:20px; height:20px; margin:10px auto;"></div>
+          <p style="text-align:center; font-size:0.85rem; color:var(--ink-soft);">日誌載入中...</p>
+        </div>
+      </details>
+    </div>
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="搜尋工作室名稱或噗浪帳號…">
@@ -102,5 +147,22 @@
 <script src="assets/js/config.js"></script>
 <script src="assets/js/gsheet.js"></script>
 <script src="assets/js/app.js"></script>
+<script>
+  // 從導覽列或其他頁面連過來時，自動展開「使用說明」並捲動到該區塊
+  function openUsageGuide() {
+    const el = document.getElementById('usageGuide');
+    if (!el) return;
+    el.open = true;
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  if (location.hash === '#usageGuide') openUsageGuide();
+  document.getElementById('navUsageGuide')?.addEventListener('click', (e) => {
+    if (location.pathname.endsWith('index.html') || location.pathname === '/' || location.pathname.endsWith('/StudiowithPlurker/')) {
+      e.preventDefault();
+      openUsageGuide();
+      history.replaceState(null, '', '#usageGuide');
+    }
+  });
+</script>
 </body>
 </html>

@@ -456,3 +456,27 @@ button, input, select{ font-family: inherit; }
 }
 .changelog-text{ font-size: 0.86rem; color: var(--ink-soft); line-height: 1.55; }
 .changelog-text a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
+
+/* ===================== 使用說明 (Usage guide, in-page collapsible) ===================== */
+.hero-details-row{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:14px;
+  max-width: min(94%, 900px); margin: 0 auto;
+}
+.hero-details-row .changelog-details{ flex:1 1 320px; margin:0 0 6px; max-width: 440px; }
+
+.guide-content{ max-height: 340px; }
+.guide-content .guide-step{ display:flex; gap:12px; align-items:flex-start; margin-bottom:14px; }
+.guide-content .guide-step:last-of-type{ margin-bottom:10px; }
+.guide-step-num{
+  flex-shrink:0; width:24px; height:24px; border-radius:50%;
+  background: var(--accent-soft); color: var(--accent);
+  font-family: var(--font-display); font-weight:700; font-size:.8rem;
+  display:flex; align-items:center; justify-content:center;
+}
+.guide-step-body h3{ margin:0 0 4px; font-size:.9rem; font-weight:700; }
+.guide-step-body p{ margin:0; color: var(--ink-soft); font-size:.82rem; line-height:1.55; }
+.guide-source-line{
+  font-size:.8rem; color: var(--ink-soft); border-top:1px solid var(--line);
+  padding-top:12px; margin:0;
+}
+.guide-source-line a{ color: var(--accent); border-bottom:1px solid var(--accent); }
