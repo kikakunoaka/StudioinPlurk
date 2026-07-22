@@ -31,7 +31,7 @@ body{
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
-  line-height: 1.65;
+  e-height: 1.65;
   min-height:100vh;
 }
 a{ color: inherit; text-decoration: none; }
@@ -61,7 +61,7 @@ button, input, select{ font-family: inherit; }
   background-size: auto 200px;
   background-position: center ;
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid var(--line);
+  border-bottom: 1px solid var(--e);
 }
 
 
@@ -105,7 +105,7 @@ button, input, select{ font-family: inherit; }
 
 .search-box{ display:flex; gap:10px; width: 100%; max-width: min(90%, 480px); margin: 0 auto; }
 .search-box input{
-  flex:1; border: 1px solid var(--line); background: var(--surface);
+  flex:1; border: 1px solid var(--e); background: var(--surface);
   border-radius: 999px; padding: 11px 18px; font-size: .92rem; color: var(--ink);
   outline:none; transition: border-color .15s, box-shadow .15s;
 }
@@ -401,8 +401,8 @@ button, input, select{ font-family: inherit; }
   .studio-hero-info .charm-plurk, .studio-hero-info .badge-row{ justify-content:center; text-align:center; }
 }
 
-/* ===================== 站內資訊 (使用說明／更新日誌／前人種樹，共用一個摺疊區塊) ===================== */
-.info-details{
+/* ===================== 更新日誌 (Changelog) ===================== */
+.changelog-details{
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: var(--radius-md);
@@ -411,106 +411,32 @@ button, input, select{ font-family: inherit; }
   width: 100%;
   max-width: min(90%, 800px);
   text-align: left;
-  transition: box-shadow .2s ease;
 }
-.info-details[open]{ box-shadow: 0 6px 20px var(--shadow); }
-.info-summary{
+.changelog-summary{
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 18px;
-  font-weight: 700;
-  font-family: var(--font-display);
-  font-size: 1rem;
-  color: var(--ink);
+  padding: 13px 18px;
+  font-weight: 600;
   cursor: pointer;
   user-select: none;
   list-style: none;
 }
-.info-summary::-webkit-details-marker{ display: none; }
-.info-arrow{
+.changelog-summary::-webkit-details-marker{ display: none; }
+.changelog-dot{
+  width: 7px; height: 7px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.changelog-arrow{
   margin-left: auto;
   font-size: 0.72rem;
   color: var(--ink-soft);
   transition: transform 0.2s ease;
 }
-.info-details[open] .info-arrow{ transform: rotate(180deg); }
-
-.info-tabs{
-  display: flex;
-  gap: 4px;
-  padding: 0 14px;
-  border-top: 1px solid var(--line);
-  background: var(--bg-soft, rgba(0,0,0,.02));
-}
-.info-tab{
-  appearance: none;
-  border: none;
-  background: transparent;
-  font-family: inherit;
-  font-size: .82rem;
-  font-weight: 600;
-  color: var(--ink-soft);
-  padding: 10px 12px;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-  transition: color .15s ease, border-color .15s ease;
-}
-.info-tab:hover{ color: var(--ink); }
-.info-tab.is-active{ color: var(--accent); border-bottom-color: var(--accent); }
-
-.info-panel{ display: none; }
-.info-panel.is-active{ display: block; }
-
-.usage-icon{
-  width: 28px; height: 28px;
-  border-radius: 50%;
-  background: var(--accent);
-  color: #fff;
-  font-size: .85rem;
-  display: flex; align-items: center; justify-content: center;
-  flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(242,144,58,.35);
-}
-.usage-content{
-  padding: 18px;
-  max-height: 280px;
-  overflow-y: auto;
-  background: var(--surface);
-}
-.usage-content::-webkit-scrollbar{ width: 6px; }
-.usage-content::-webkit-scrollbar-track{ background: transparent; }
-.usage-content::-webkit-scrollbar-thumb{ background: var(--accent-soft); border-radius: 99px; }
-
-.usage-line{
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-.usage-line:last-child{ margin-bottom: 0; }
-.usage-line-num{
-  flex-shrink: 0;
-  width: 20px; height: 20px;
-  margin-top: 1px;
-  border-radius: 50%;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: .68rem;
-  display: flex; align-items: center; justify-content: center;
-}
-.usage-line-text{
-  margin: 0;
-  font-size: .86rem;
-  color: var(--ink-soft);
-  line-height: 1.55;
-}
-.usage-line-text a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
-
-/* ---- 更新日誌內容（放在 info-panel 內） ---- */
+.changelog-details[open] .changelog-arrow{ transform: rotate(180deg); }
 .changelog-content{
+  border-top: 1px solid var(--line);
   padding: 18px;
   max-height: 280px;
   overflow-y: auto;
@@ -530,25 +456,3 @@ button, input, select{ font-family: inherit; }
 }
 .changelog-text{ font-size: 0.86rem; color: var(--ink-soft); line-height: 1.55; }
 .changelog-text a{ color: var(--accent); border-bottom: 1px solid var(--accent); word-break: break-all; }
-
-/* ---- 前人種樹內容（放在 info-panel 內） ---- */
-.credits-content{
-  padding: 18px;
-  max-height: 280px;
-  overflow-y: auto;
-}
-.credits-content::-webkit-scrollbar{ width: 6px; }
-.credits-content::-webkit-scrollbar-track{ background: transparent; }
-.credits-content::-webkit-scrollbar-thumb{ background: var(--accent-soft); border-radius: 99px; }
-
-.credits-list{ display: flex; flex-direction: column; gap: 12px; }
-.credits-item{
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
-  border-bottom: 1px solid var(--line);
-  padding-bottom: 12px;
-}
-.credits-item:last-child{ border-bottom: none; padding-bottom: 0; }
-.credits-name{ font-size: 0.86rem; color: var(--ink-soft); line-height: 1.55; }
